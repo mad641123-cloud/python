@@ -1,0 +1,49 @@
+h1{
+    color:red;
+}
+
+body{
+    background-color:rgb(255, 196, 0);
+}
+
+
+h1{
+    font-size: 40px;
+    font-family: Arial, sans-serif;
+}
+p{
+    font-size: 20px;
+}
+
+h1{
+    text-align: center;
+}
+
+div{
+    text-align: center;
+    border:1px solid black;
+}
+
+button{
+    background-color:blue;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+ .container{
+    background-color: white;
+    width:350px;
+    margin: 10px auto;
+    padding: 30px;
+    border-radius: 5px;
+ }
+
+ input{
+    padding: 12px;
+    width:90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+ }
