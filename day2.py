@@ -26,7 +26,8 @@ class student:
     def display(self):
         print("hello students")
         print("welcome")
-
+s1=student("abc,23,85")
+s2=student("abd,24,85")
 s1=student()
 
 s1.display()

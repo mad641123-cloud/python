@@ -1,0 +1,102 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+
+psql (18.7)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \c college
+You are now connected to database "college" as user "postgres".
+college=# CREATE TABLE departments (
+college(#     department_id SERIAL PRIMARY KEY,
+college(#     department_name VARCHAR(100)
+college(# );
+CREATE TABLE
+college=# INSERT INTO departments (department_name)
+college-# VALUES
+college-# ('CS'),
+college-# ('Mechanical'),
+college-# ('ECE'),
+college-# ('Civil');
+INSERT 0 4
+college=# \d departments
+                                              Table "public.departments"
+     Column      |          Type          | Collation | Nullable |                      Default
+-----------------+------------------------+-----------+----------+----------------------------------------------------
+ department_id   | integer                |           | not null | nextval('departments_department_id_seq'::regclass)
+ department_name | character varying(100) |           |          |
+Indexes:
+    "departments_pkey" PRIMARY KEY, btree (department_id)
+
+
+college=# SELECT * FROM departments;
+ department_id | department_name
+---------------+-----------------
+             1 | CS
+             2 | Mechanical
+             3 | ECE
+             4 | Civil
+(4 rows)
+
+
+college=# INSERT INTO departments (department_name)
+college-# VALUES
+college-# ('CSE'),
+college-# ('MECH'),
+college-# ('aiml'),
+college-# ('CIVIL');
+INSERT 0 4
+college=# CREATE TABLE employee (
+college(#     employee_id SERIAL PRIMARY KEY,
+college(#     employee_name VARCHAR(100),
+college(#     salary INT,
+college(#     department_id INT REFERENCES departments(department_id)
+college(# );
+CREATE TABLE
+college=# \d employee
+                                            Table "public.employee"
+    Column     |          Type          | Collation | Nullable |                    Default
+---------------+------------------------+-----------+----------+-----------------------------------------------
+ employee_id   | integer                |           | not null | nextval('employee_employee_id_seq'::regclass)
+ employee_name | character varying(100) |           |          |
+ salary        | integer                |           |          |
+ department_id | integer                |           |          |
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (employee_id)
+Foreign-key constraints:
+    "employee_department_id_fkey" FOREIGN KEY (department_id) REFERENCES departments(department_id)
+
+
+college=# insert into employee(employee_name,salary,department_id)
+college-# values
+college-# ('rahul' 25000,2),
+college-# ('dimno'30000,2),
+college-#  ('timo'40000,1),
+college-#  ('pimno'50000,3);
+ERROR:  syntax error at or near "25000"
+LINE 3: ('rahul' 25000,2),
+                 ^
+college=# insert into employee(employee_name,salary,department_id)
+college-# values
+college-# ('rahul', 25000,2),
+college-# ('dimno',30000,2),
+college-#  ('timo',40000,1),
+college-#  ('pimno',50000,3);
+INSERT 0 4
+college=# SELECT * From employee
+college-# ;
+ employee_id | employee_name | salary | department_id
+-------------+---------------+--------+---------------
+           1 | rahul         |  25000 |             2
+           2 | dimno         |  30000 |             2
+           3 | timo          |  40000 |             1
+           4 | pimno         |  50000 |             3
+(4 rows)
+
+
+college=#
