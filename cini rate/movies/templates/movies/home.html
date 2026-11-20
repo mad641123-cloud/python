@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineRate | Movie Reviews</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #101014;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #19191f;
+            padding: 22px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            color: #ff3030;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: #ff3030;
+        }
+
+        .hero {
+            padding: 65px 7%;
+            background: linear-gradient(90deg, #191919, #381515);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+        }
+
+        .hero p {
+            color: #ccc;
+        }
+
+        .search {
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .search input {
+            width: 65%;
+            max-width: 500px;
+            padding: 15px;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        .search button {
+            padding: 15px 22px;
+            background: #ed3030;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .search button:hover {
+            background: #c91f1f;
+        }
+
+        h2.section-title {
+            padding-left: 5%;
+            margin-top: 35px;
+        }
+
+        .movie-list {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(210px, 1fr)
+            );
+            gap: 25px;
+            padding: 25px 5%;
+        }
+
+        .movie-link {
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .movie-card {
+            background: #202027;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+            height: 100%;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            background: #080808;
+        }
+
+        .details {
+            padding: 15px;
+        }
+
+        .details h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .description {
+            color: #bbb;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .rating {
+            color: #ffc928;
+            font-weight: bold;
+        }
+
+        .empty-message {
+            padding: 20px 5%;
+            color: #ccc;
+        }
+
+        footer {
+            text-align: center;
+            background: #19191f;
+            padding: 25px;
+            color: #aaa;
+            margin-top: 30px;
+        }
+
+        @media(max-width: 600px) {
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .search input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search button {
+                width: 100%;
+            }
+
+            .movie-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 15px;
+            }
+
+            .movie-card img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">CineRate 🎬</div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#movies">Movies</a>
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <h1>Discover. Watch. Review.</h1>
+
+    <p>Your destination for movies, ratings and reviews.</p>
+
+</section>
+
+<section class="search">
+
+    <form method="GET" action="/">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Search your favourite movie..."
+            value="{{ search }}"
+        >
+
+        <button type="submit">Search</button>
+
+    </form>
+
+</section>
+
+<h2 class="section-title" id="movies">
+    Popular Movies
+</h2>
+
+<div class="movie-list">
+
+    {% for movie in movies %}
+
+        <a href="{% url 'movie_detail' movie.id %}" class="movie-link">
+
+            <div class="movie-card">
+
+                <img
+                    src="{{ movie.poster }}"
+                    alt="{{ movie.title }}"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='https://placehold.co/300x450/202027/ffffff?text=No+Poster';"
+                >
+
+                <div class="details">
+
+                    <h3>{{ movie.title }}</h3>
+
+                    <p>Release Year: {{ movie.year }}</p>
+
+                    <p class="rating">
+                        ⭐ {{ movie.rating }}/10
+                    </p>
+
+                    <p class="description">
+                        {{ movie.description }}
+                    </p>
+
+                    <p>View Movie Details →</p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    {% empty %}
+
+        <p class="empty-message">No movies found.</p>
+
+    {% endfor %}
+
+</div>
+
+<footer>
+
+    © 2026 CineRate. All Rights Reserved.
+
+</footer>
+
+</body>
+</html>

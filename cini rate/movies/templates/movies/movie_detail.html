@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }} | CineRate</title>
+    <style>
+        body {
+            background: #101014;
+            color: white;
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        img {
+            width: 280px;
+            border-radius: 12px;
+        }
+
+        .rating {
+            color: gold;
+            font-size: 22px;
+        }
+
+        a {
+            color: #ff3030;
+        }
+    </style>
+</head>
+<body>
+
+<a href="/">← Back to Home</a>
+
+<div class="container">
+    <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+
+    <div>
+        <h1>{{ movie.title }}</h1>
+        <p>Release Year: {{ movie.year }}</p>
+
+        <p class="rating">
+            ⭐ {{ movie.rating }}/10
+        </p>
+
+        <h3>Movie Description</h3>
+        <p>{{ movie.description }}</p>
+    </div>
+</div>
+
+</body>
+</html>
